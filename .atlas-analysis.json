@@ -1,0 +1,68 @@
+{
+  "projectType": "saas",
+  "projectName": "Letter Generator",
+  "projectDescription": "AI-powered letter writing assistant for creating professional, personal, and formal letters in seconds",
+  "theme": "almond",
+  "primaryColor": "#6366f1",
+  "lightColor": "#818cf8",
+  "darkColor": "#4f46e5",
+  "navigation": {
+    "tabs": [
+      {
+        "tab": "Documentation",
+        "groups": [
+          {
+            "group": "Get Started",
+            "pages": ["introduction", "quickstart"]
+          },
+          {
+            "group": "Core Features",
+            "pages": [
+              "features/letter-types",
+              "features/tone-selection",
+              "features/ai-generation",
+              "features/multilingual"
+            ]
+          },
+          {
+            "group": "Guides",
+            "pages": [
+              "guides/writing-cover-letters",
+              "guides/recommendation-letters",
+              "guides/formal-letters",
+              "guides/personal-letters"
+            ]
+          },
+          {
+            "group": "Pricing",
+            "pages": ["pricing/plans", "pricing/faq"]
+          }
+        ]
+      },
+      {
+        "tab": "API Reference",
+        "groups": [
+          {
+            "group": "API",
+            "pages": ["api/overview", "api/authentication", "api/generate-letter"]
+          }
+        ]
+      }
+    ]
+  },
+  "keyFeatures": [
+    "25+ letter types including cover, recommendation, and formal letters",
+    "17 customizable tones from professional to romantic",
+    "AI-powered instant letter generation",
+    "Multilingual support for global communication",
+    "Free tier with generous daily generations",
+    "Premium plans for unlimited access"
+  ],
+  "publicApiSurface": [
+    "Web interface at lettergenerator.co",
+    "Letter type selector (25+ types)",
+    "Tone selector (17 tones)",
+    "Letter generation API",
+    "Download and copy functionality"
+  ]
+}
