@@ -1,0 +1,424 @@
+---
+title: Generate letter
+description: Create AI-powered letters using the Letter Generator API with customizable parameters
+---
+
+The generate letter endpoint creates professional letters using artificial intelligence based on your specified parameters. You can customize the letter type, tone, language, and provide details to generate personalized content.
+
+## Endpoint
+
+```
+POST https://api.lettergenerator.co/v1/generate
+```
+
+## Request parameters
+
+<ParamField path="type" type="string" required>
+  The type of letter to generate. Choose from 25+ available letter types.
+  
+  **Available types:**
+  - `cover_letter` - Professional cover letter for job applications
+  - `recommendation_letter` - Letter of recommendation
+  - `resignation_letter` - Formal resignation letter
+  - `thank_you_letter` - Thank you or appreciation letter
+  - `apology_letter` - Formal or personal apology
+  - `complaint_letter` - Complaint or grievance letter
+  - `love_letter` - Romantic or affectionate letter
+  - `invitation_letter` - Event or occasion invitation
+  - `business_letter` - General business correspondence
+  - `formal_letter` - Formal correspondence
+  - And 15+ more types
+</ParamField>
+
+<ParamField path="tone" type="string" required>
+  The tone or style of the letter. Choose from 17 available tones.
+  
+  **Available tones:**
+  - `professional` - Business-appropriate and formal
+  - `friendly` - Warm and approachable
+  - `persuasive` - Convincing and compelling
+  - `romantic` - Affectionate and heartfelt
+  - `formal` - Very formal and traditional
+  - `casual` - Relaxed and informal
+  - `apologetic` - Sincere and remorseful
+  - `enthusiastic` - Energetic and positive
+  - `empathetic` - Understanding and compassionate
+  - And 8+ more tones
+</ParamField>
+
+<ParamField path="recipientName" type="string" required>
+  The name of the person or organization receiving the letter.
+  
+  **Example:** `"Sarah Johnson"`, `"TechCorp Hiring Team"`
+</ParamField>
+
+<ParamField path="purpose" type="string" required>
+  A brief description of the letter's main purpose or objective.
+  
+  **Example:** `"Applying for Senior Software Engineer position"`, `"Requesting refund for defective product"`
+</ParamField>
+
+<ParamField path="details" type="string" required>
+  Additional context, background information, or specific points to include in the letter. This helps the AI generate more personalized and relevant content.
+  
+  **Example:** `"I have 5 years of experience in full-stack development with React and Node.js. Led a team of 3 developers on the XYZ project."`
+</ParamField>
+
+<ParamField path="language" type="string" default="en">
+  The language code for the generated letter. Supports multiple languages for global communication.
+  
+  **Supported languages:**
+  - `en` - English (default)
+  - `es` - Spanish
+  - `fr` - French
+  - `de` - German
+  - `it` - Italian
+  - `pt` - Portuguese
+  - `zh` - Chinese
+  - `ja` - Japanese
+  - And more
+</ParamField>
+
+<ParamField path="senderName" type="string">
+  The name of the person sending the letter. If provided, it will be used in the letter signature.
+  
+  **Example:** `"John Smith"`
+</ParamField>
+
+<ParamField path="length" type="string" default="medium">
+  The desired length of the generated letter.
+  
+  **Options:**
+  - `short` - Brief and concise (100-200 words)
+  - `medium` - Standard length (200-400 words)
+  - `long` - Detailed and comprehensive (400-600 words)
+</ParamField>
+
+## Request example
+
+<CodeGroup>
+
+```bash cURL
+curl https://api.lettergenerator.co/v1/generate \
+  -H "Authorization: Bearer YOUR_API_KEY" \
+  -H "Content-Type: application/json" \
+  -X POST \
+  -d '{
+    "type": "cover_letter",
+    "tone": "professional",
+    "recipientName": "Sarah Johnson",
+    "purpose": "Applying for Senior Software Engineer position at TechCorp",
+    "details": "I have 5 years of experience in full-stack development, specializing in React, Node.js, and cloud infrastructure. I led the development of a microservices platform that improved system performance by 40%. I am passionate about building scalable applications and mentoring junior developers.",
+    "senderName": "Michael Chen",
+    "language": "en",
+    "length": "medium"
+  }'
+```
+
+```javascript JavaScript
+const response = await fetch('https://api.lettergenerator.co/v1/generate', {
+  method: 'POST',
+  headers: {
+    'Authorization': 'Bearer YOUR_API_KEY',
+    'Content-Type': 'application/json'
+  },
+  body: JSON.stringify({
+    type: 'cover_letter',
+    tone: 'professional',
+    recipientName: 'Sarah Johnson',
+    purpose: 'Applying for Senior Software Engineer position at TechCorp',
+    details: 'I have 5 years of experience in full-stack development, specializing in React, Node.js, and cloud infrastructure. I led the development of a microservices platform that improved system performance by 40%.',
+    senderName: 'Michael Chen',
+    language: 'en',
+    length: 'medium'
+  })
+});
+
+const data = await response.json();
+console.log(data.letter);
+```
+
+```python Python
+import requests
+
+url = 'https://api.lettergenerator.co/v1/generate'
+headers = {
+    'Authorization': 'Bearer YOUR_API_KEY',
+    'Content-Type': 'application/json'
+}
+data = {
+    'type': 'cover_letter',
+    'tone': 'professional',
+    'recipientName': 'Sarah Johnson',
+    'purpose': 'Applying for Senior Software Engineer position at TechCorp',
+    'details': 'I have 5 years of experience in full-stack development, specializing in React, Node.js, and cloud infrastructure.',
+    'senderName': 'Michael Chen',
+    'language': 'en',
+    'length': 'medium'
+}
+
+response = requests.post(url, headers=headers, json=data)
+result = response.json()
+print(result['letter'])
+```
+
+```php PHP
+<?php
+$url = 'https://api.lettergenerator.co/v1/generate';
+$headers = [
+    'Authorization: Bearer YOUR_API_KEY',
+    'Content-Type: application/json'
+];
+$data = [
+    'type' => 'cover_letter',
+    'tone' => 'professional',
+    'recipientName' => 'Sarah Johnson',
+    'purpose' => 'Applying for Senior Software Engineer position at TechCorp',
+    'details' => 'I have 5 years of experience in full-stack development.',
+    'senderName' => 'Michael Chen',
+    'language' => 'en',
+    'length' => 'medium'
+];
+
+$ch = curl_init($url);
+curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+curl_setopt($ch, CURLOPT_POST, true);
+curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($data));
+curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+
+$response = curl_exec($ch);
+$result = json_decode($response, true);
+echo $result['letter'];
+curl_close($ch);
+?>
+```
+
+```go Go
+package main
+
+import (
+    "bytes"
+    "encoding/json"
+    "fmt"
+    "io/ioutil"
+    "net/http"
+)
+
+func main() {
+    url := "https://api.lettergenerator.co/v1/generate"
+    
+    payload := map[string]string{
+        "type": "cover_letter",
+        "tone": "professional",
+        "recipientName": "Sarah Johnson",
+        "purpose": "Applying for Senior Software Engineer position at TechCorp",
+        "details": "I have 5 years of experience in full-stack development.",
+        "senderName": "Michael Chen",
+        "language": "en",
+        "length": "medium",
+    }
+    
+    jsonData, _ := json.Marshal(payload)
+    
+    req, _ := http.NewRequest("POST", url, bytes.NewBuffer(jsonData))
+    req.Header.Set("Authorization", "Bearer YOUR_API_KEY")
+    req.Header.Set("Content-Type", "application/json")
+    
+    client := &http.Client{}
+    resp, _ := client.Do(req)
+    defer resp.Body.Close()
+    
+    body, _ := ioutil.ReadAll(resp.Body)
+    fmt.Println(string(body))
+}
+```
+
+</CodeGroup>
+
+## Response
+
+A successful request returns a JSON object with the generated letter content.
+
+<ResponseField name="id" type="string">
+  Unique identifier for the generated letter.
+</ResponseField>
+
+<ResponseField name="letter" type="string">
+  The complete generated letter content in plain text format.
+</ResponseField>
+
+<ResponseField name="wordCount" type="integer">
+  The number of words in the generated letter.
+</ResponseField>
+
+<ResponseField name="type" type="string">
+  The letter type that was requested.
+</ResponseField>
+
+<ResponseField name="tone" type="string">
+  The tone that was applied to the letter.
+</ResponseField>
+
+<ResponseField name="language" type="string">
+  The language code of the generated letter.
+</ResponseField>
+
+<ResponseField name="createdAt" type="string">
+  ISO 8601 timestamp of when the letter was generated.
+</ResponseField>
+
+<ResponseField name="creditsUsed" type="integer">
+  Number of API credits consumed by this request.
+</ResponseField>
+
+### Response example
+
+```json
+{
+  "id": "let_9j4k2m1n8p7q6r5s",
+  "letter": "Dear Sarah Johnson,\n\nI am writing to express my strong interest in the Senior Software Engineer position at TechCorp. With five years of hands-on experience in full-stack development and a proven track record of delivering scalable solutions, I am confident that I would be a valuable addition to your team.\n\nThroughout my career, I have specialized in React, Node.js, and cloud infrastructure, consistently pushing the boundaries of what's possible in modern web development. Most notably, I led the development of a comprehensive microservices platform that improved overall system performance by 40%, demonstrating my ability to architect solutions that drive tangible business results.\n\nBeyond technical expertise, I am deeply passionate about building scalable applications and mentoring junior developers. I believe that great engineering is not just about writing code, but about fostering a collaborative environment where innovation thrives and team members grow together.\n\nI would welcome the opportunity to discuss how my experience and vision align with TechCorp's goals. Thank you for considering my application.\n\nSincerely,\nMichael Chen",
+  "wordCount": 187,
+  "type": "cover_letter",
+  "tone": "professional",
+  "language": "en",
+  "createdAt": "2026-03-03T14:30:00Z",
+  "creditsUsed": 1
+}
+```
+
+## Error responses
+
+The API returns standard HTTP status codes to indicate success or failure.
+
+### 400 Bad Request
+
+Returned when the request is malformed or missing required parameters.
+
+```json
+{
+  "error": {
+    "code": "invalid_request",
+    "message": "Missing required parameter: type",
+    "type": "validation_error",
+    "param": "type"
+  }
+}
+```
+
+### 401 Unauthorized
+
+Returned when the API key is missing or invalid.
+
+```json
+{
+  "error": {
+    "code": "invalid_api_key",
+    "message": "The API key provided is invalid or has been revoked",
+    "type": "authentication_error"
+  }
+}
+```
+
+### 429 Too Many Requests
+
+Returned when you exceed your rate limit.
+
+```json
+{
+  "error": {
+    "code": "rate_limit_exceeded",
+    "message": "You have exceeded your daily rate limit of 100 requests. Limit resets at 2026-03-04T00:00:00Z",
+    "type": "rate_limit_error",
+    "retryAfter": 34560
+  }
+}
+```
+
+### 500 Internal Server Error
+
+Returned when an unexpected error occurs on the server.
+
+```json
+{
+  "error": {
+    "code": "internal_error",
+    "message": "An unexpected error occurred. Please try again later.",
+    "type": "server_error"
+  }
+}
+```
+
+### 503 Service Unavailable
+
+Returned when the service is temporarily unavailable due to maintenance or high load.
+
+```json
+{
+  "error": {
+    "code": "service_unavailable",
+    "message": "The service is temporarily unavailable. Please try again in a few moments.",
+    "type": "server_error",
+    "retryAfter": 60
+  }
+}
+```
+
+## Error codes
+
+<ResponseField name="invalid_request" type="validation_error">
+  The request is malformed, missing required parameters, or contains invalid values.
+</ResponseField>
+
+<ResponseField name="invalid_api_key" type="authentication_error">
+  The API key is missing, invalid, expired, or has been revoked.
+</ResponseField>
+
+<ResponseField name="insufficient_credits" type="payment_error">
+  Your account has run out of API credits. Upgrade your plan or wait for the next billing cycle.
+</ResponseField>
+
+<ResponseField name="rate_limit_exceeded" type="rate_limit_error">
+  You have exceeded your plan's rate limit. Wait for the limit to reset or upgrade your plan.
+</ResponseField>
+
+<ResponseField name="invalid_type" type="validation_error">
+  The specified letter type is not supported. Check the available types in the parameters section.
+</ResponseField>
+
+<ResponseField name="invalid_tone" type="validation_error">
+  The specified tone is not supported. Check the available tones in the parameters section.
+</ResponseField>
+
+<ResponseField name="invalid_language" type="validation_error">
+  The specified language code is not supported.
+</ResponseField>
+
+<ResponseField name="content_policy_violation" type="validation_error">
+  The request was rejected because it violates our content policy. Ensure your inputs are appropriate and professional.
+</ResponseField>
+
+<ResponseField name="internal_error" type="server_error">
+  An unexpected error occurred on the server. Please try again later.
+</ResponseField>
+
+<ResponseField name="service_unavailable" type="server_error">
+  The service is temporarily unavailable. Check our status page for updates.
+</ResponseField>
+
+## Tips for best results
+
+<Tip>
+  Provide detailed and specific information in the `details` parameter. The more context you provide, the more personalized and relevant your generated letter will be.
+</Tip>
+
+<Tip>
+  Choose the appropriate tone for your use case. A cover letter should use "professional" or "enthusiastic", while a love letter might use "romantic" or "heartfelt".
+</Tip>
+
+<Tip>
+  For multilingual letters, ensure that the `purpose` and `details` parameters are provided in the same language as the `language` parameter for best results.
+</Tip>
+
+<Warning>
+  Always review and edit generated letters before sending them. While our AI produces high-quality content, you should personalize it further to match your specific situation.
+</Warning>

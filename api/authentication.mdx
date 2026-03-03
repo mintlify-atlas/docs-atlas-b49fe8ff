@@ -1,0 +1,193 @@
+---
+title: Authentication
+description: Learn how to authenticate your requests to the Letter Generator API using API keys
+---
+
+The Letter Generator API uses API key authentication to secure your requests. You must include your API key in the header of every API request.
+
+## Get your API key
+
+To obtain your API key:
+
+1. Sign up for an account at [lettergenerator.co](https://lettergenerator.co)
+2. Log in to your dashboard
+3. Navigate to **Settings** > **API Keys**
+4. Click **Generate New API Key**
+5. Copy and securely store your API key
+
+<Warning>
+  Keep your API key secret and never share it publicly or commit it to version control. Treat it like a password.
+</Warning>
+
+## Authentication method
+
+Include your API key in the `Authorization` header of every request using the Bearer token format:
+
+```bash
+Authorization: Bearer YOUR_API_KEY
+```
+
+## Example request
+
+Here's how to authenticate a request to the Letter Generator API:
+
+<CodeGroup>
+
+```bash cURL
+curl https://api.lettergenerator.co/v1/generate \
+  -H "Authorization: Bearer lg_sk_1234567890abcdef" \
+  -H "Content-Type: application/json" \
+  -X POST \
+  -d '{
+    "type": "cover_letter",
+    "tone": "professional",
+    "recipientName": "Sarah Johnson",
+    "purpose": "Software Engineer position at TechCorp",
+    "details": "5 years of experience in full-stack development"
+  }'
+```
+
+```javascript JavaScript
+const response = await fetch('https://api.lettergenerator.co/v1/generate', {
+  method: 'POST',
+  headers: {
+    'Authorization': 'Bearer lg_sk_1234567890abcdef',
+    'Content-Type': 'application/json'
+  },
+  body: JSON.stringify({
+    type: 'cover_letter',
+    tone: 'professional',
+    recipientName: 'Sarah Johnson',
+    purpose: 'Software Engineer position at TechCorp',
+    details: '5 years of experience in full-stack development'
+  })
+});
+
+const data = await response.json();
+```
+
+```python Python
+import requests
+
+url = 'https://api.lettergenerator.co/v1/generate'
+headers = {
+    'Authorization': 'Bearer lg_sk_1234567890abcdef',
+    'Content-Type': 'application/json'
+}
+data = {
+    'type': 'cover_letter',
+    'tone': 'professional',
+    'recipientName': 'Sarah Johnson',
+    'purpose': 'Software Engineer position at TechCorp',
+    'details': '5 years of experience in full-stack development'
+}
+
+response = requests.post(url, headers=headers, json=data)
+result = response.json()
+```
+
+```php PHP
+<?php
+$url = 'https://api.lettergenerator.co/v1/generate';
+$headers = [
+    'Authorization: Bearer lg_sk_1234567890abcdef',
+    'Content-Type: application/json'
+];
+$data = [
+    'type' => 'cover_letter',
+    'tone' => 'professional',
+    'recipientName' => 'Sarah Johnson',
+    'purpose' => 'Software Engineer position at TechCorp',
+    'details' => '5 years of experience in full-stack development'
+];
+
+$ch = curl_init($url);
+curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+curl_setopt($ch, CURLOPT_POST, true);
+curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($data));
+curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+
+$response = curl_exec($ch);
+$result = json_decode($response, true);
+curl_close($ch);
+?>
+```
+
+</CodeGroup>
+
+## Managing API keys
+
+### Rotate keys regularly
+
+For security best practices, rotate your API keys periodically:
+
+1. Generate a new API key in your dashboard
+2. Update your application to use the new key
+3. Test that the new key works correctly
+4. Delete the old API key
+
+### Multiple API keys
+
+You can create multiple API keys for different applications or environments:
+
+- **Development** - Use a separate key for testing
+- **Production** - Use a dedicated key for your live application
+- **Team members** - Issue individual keys for tracking and revocation
+
+### Revoke compromised keys
+
+If your API key is compromised:
+
+1. Immediately delete the compromised key from your dashboard
+2. Generate a new API key
+3. Update all applications using the old key
+4. Monitor your usage logs for suspicious activity
+
+## Authentication errors
+
+You may encounter these authentication errors:
+
+<ResponseField name="401 Unauthorized" type="error">
+  Your API key is missing, invalid, or expired. Verify that you're including the correct key in the Authorization header.
+</ResponseField>
+
+<ResponseField name="403 Forbidden" type="error">
+  Your API key is valid but doesn't have permission to access this resource. Check your plan limits.
+</ResponseField>
+
+### Example error response
+
+```json
+{
+  "error": {
+    "code": "invalid_api_key",
+    "message": "The API key provided is invalid or has been revoked",
+    "type": "authentication_error"
+  }
+}
+```
+
+## Best practices
+
+<AccordionGroup>
+  <Accordion title="Store keys securely">
+    Use environment variables or secure credential management systems to store your API keys. Never hardcode keys in your source code.
+    
+    ```bash
+    # .env file
+    LETTER_GENERATOR_API_KEY=lg_sk_1234567890abcdef
+    ```
+  </Accordion>
+  
+  <Accordion title="Use HTTPS only">
+    Always make API requests over HTTPS to encrypt your API key in transit. HTTP requests will be rejected.
+  </Accordion>
+  
+  <Accordion title="Monitor usage">
+    Regularly check your API usage in the dashboard to detect unauthorized access or unusual patterns.
+  </Accordion>
+  
+  <Accordion title="Implement error handling">
+    Handle authentication errors gracefully in your application and log failures for debugging.
+  </Accordion>
+</AccordionGroup>

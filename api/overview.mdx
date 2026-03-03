@@ -1,0 +1,67 @@
+---
+title: API overview
+description: Get started with the Letter Generator API to integrate AI-powered letter generation into your applications
+---
+
+The Letter Generator API enables you to programmatically generate professional letters using artificial intelligence. Create cover letters, recommendation letters, formal correspondence, and 25+ other letter types with customizable tones and multilingual support.
+
+## Base URL
+
+All API requests should be made to:
+
+```
+https://api.lettergenerator.co/v1
+```
+
+## Key features
+
+The Letter Generator API provides:
+
+- **25+ letter types** - Generate cover letters, recommendation letters, resignation letters, love letters, and more
+- **17 customizable tones** - Choose from professional, friendly, persuasive, romantic, formal, casual, and other styles
+- **AI-powered generation** - Instant letter creation using advanced language models
+- **Multilingual support** - Generate letters in multiple languages for global communication
+- **High availability** - Reliable API with 99.9% uptime SLA
+- **Fast response times** - Typical generation completes in under 3 seconds
+
+## Getting started
+
+To start using the API:
+
+1. Sign up for an account at [lettergenerator.co](https://lettergenerator.co)
+2. Navigate to your dashboard and generate an API key
+3. Authenticate your requests using your API key
+4. Make your first letter generation request
+
+<Card title="Authentication" icon="key" href="/api/authentication">
+  Learn how to authenticate your API requests
+</Card>
+
+<Card title="Generate letter" icon="envelope" href="/api/generate-letter">
+  Create AI-powered letters with the generation endpoint
+</Card>
+
+## Rate limits
+
+API rate limits vary by plan:
+
+- **Free tier**: 10 requests per day
+- **Basic plan**: 100 requests per day
+- **Pro plan**: 1,000 requests per day
+- **Enterprise plan**: Custom limits available
+
+Rate limit information is included in response headers:
+
+```
+X-RateLimit-Limit: 100
+X-RateLimit-Remaining: 87
+X-RateLimit-Reset: 1709510400
+```
+
+## Support
+
+Need help with the API? Contact our support team:
+
+- Email: api@lettergenerator.co
+- Documentation: [lettergenerator.co/docs](https://lettergenerator.co/docs)
+- Status page: [status.lettergenerator.co](https://status.lettergenerator.co)
